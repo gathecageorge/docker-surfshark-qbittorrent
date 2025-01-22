@@ -46,12 +46,22 @@ if [ "${ENABLE_SOCKS_SERVER}" = "true" ]; then
   OPTIONAL_SOCKS_SCRIPT="--up /vpn/sockd.sh"
 fi
 
-openvpn --config $VPN_FILE --auth-user-pass vpn-auth.txt --mute-replay-warnings $OPENVPN_OPTS --script-security 2 ${OPTIONAL_SOCKS_SCRIPT}
+openvpn --config $VPN_FILE --auth-user-pass vpn-auth.txt --mute-replay-warnings $OPENVPN_OPTS --script-security 2 ${OPTIONAL_SOCKS_SCRIPT} &
+sleep 10
+
+if ! pgrep openvpn > /dev/null; then
+    echo "OpenVPN failed to start. Exiting."
+    exit 1
+fi
 
 if [ "${ENABLE_KILL_SWITCH}" = "true" ]; then
   ufw reset
   ufw default deny incoming
   ufw default deny outgoing
   ufw allow out on tun0 from any to any
+  ufw allow in on eth0 to any port 8080 proto tcp
+  ufw allow out on eth0 to any port 8080 proto tcp
   ufw enable
 fi
+
+qbittorrent-nox --webui-port=8080 --confirm-legal-notice --profile=/config --save-path=/downloads
