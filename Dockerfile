@@ -33,6 +33,4 @@ RUN apk add --update --no-cache \
   && chmod +x ./startup.sh \
   && chmod +x ./sockd.sh
 
-EXPOSE 8080
-
 ENTRYPOINT [ "./startup.sh" ]

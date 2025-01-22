@@ -11,12 +11,13 @@ services:
       - SURFSHARK_CITY=${SURFSHARK_CITY:-}
       - CONNECTION_TYPE=${CONNECTION_TYPE:-udp}
       - LAN_NETWORK=${LAN_NETWORK:-}
+      - WEBUI_PORT=${WEBUI_PORT:-8080}
     cap_add:
       - NET_ADMIN
     devices:
       - /dev/net/tun
     ports:
-      - 8080:8080
+      - ${WEBUI_PORT:-8080}:${WEBUI_PORT:-8080}
     restart: unless-stopped
     dns:
       - 1.1.1.1

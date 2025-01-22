@@ -59,9 +59,9 @@ if [ "${ENABLE_KILL_SWITCH}" = "true" ]; then
   ufw default deny incoming
   ufw default deny outgoing
   ufw allow out on tun0 from any to any
-  ufw allow in on eth0 to any port 8080 proto tcp
-  ufw allow out on eth0 to any port 8080 proto tcp
+  ufw allow in on eth0 to any port ${WEBUI_PORT} proto tcp
+  ufw allow out on eth0 to any port ${WEBUI_PORT} proto tcp
   ufw enable
 fi
 
-qbittorrent-nox --webui-port=8080 --confirm-legal-notice --profile=/config --save-path=/downloads
+qbittorrent-nox --webui-port=${WEBUI_PORT} --confirm-legal-notice --profile=/config --save-path=/downloads
