@@ -4,7 +4,7 @@ services:
     # build:
     #   context: .
     #   dockerfile: Dockerfile
-    image: gathecageorge/docker-surfshark-qbittorrent:test
+    image: gathecageorge/docker-surfshark-qbittorrent:latest
     restart: unless-stopped
     dns:
         - 1.1.1.1 # Cloudflare DNS
