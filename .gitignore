@@ -1,0 +1,3 @@
+qbittorrent/downloads/*
+!qbittorrent/downloads/.hidden
+.env
